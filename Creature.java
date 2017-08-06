@@ -450,9 +450,12 @@ public class Creature extends GameObject {
 
         int dec = 6000 * (species + 1);
 
-        if((START_MOVE_SPEED - (foodPoints / dec)) / (species + 1) > 0) {
+	// Change the movement speed here
+        /*
+	  if((START_MOVE_SPEED - (foodPoints / dec)) / (species + 1) > 0) {
             movementSpeed = (START_MOVE_SPEED - (foodPoints / dec)) / (species + 1);
-        }
+	  }
+	*/
 
     }
 
@@ -651,7 +654,7 @@ public class Creature extends GameObject {
         + "Gene 3 (See Prey)    : " + toInst(genes[2], NUM_INSTRUCTIONS) + "\n"
         + "Gene 4 (See Food)    : " + toInst(genes[3], NUM_INSTRUCTIONS) + "\n"
         + "Gene 5 (Unstimulated): " + toInst(genes[4], NUM_INSTRUCTIONS) + "\n\n"
-        + "----------------------------------------------\n\n");
+        + "----------------------------------------------");
     }
 
     public String getGenome() {

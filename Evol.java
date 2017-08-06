@@ -76,10 +76,6 @@ public class Evol extends JApplet implements Runnable {
     // Used to generate random values
     private MersenneTwister r;
 
-    // Objects used for testing
-    private Creature test, test2, enemy, enemy2;
-    private Food testFood, testFood2;
-
     private int herbCount;
 
 
@@ -87,16 +83,20 @@ public class Evol extends JApplet implements Runnable {
     // STARTING CONDITIONS
     /************************************/
 
-    private final int HERB_START_COUNT = 300;
-    private final int PRED_START_COUNT = 3;
-    private final int MAX_FOOD         = 500;
+    //private final int HERB_START_COUNT = 300;
+    //private final int PRED_START_COUNT = 3;
+    //private final int MAX_FOOD         = 300;
+
+    private final int HERB_START_COUNT = 1000;
+    private final int PRED_START_COUNT = 30;
+    private final int MAX_FOOD         = 200;
     private final int MAX_FOOD_AMOUNT  = 10000;
     private final int FOOD_START_COUNT = MAX_FOOD;
-    private final boolean PREDS_ON     = false;
+    private final boolean PREDS_ON     = true;
 
     // Number of food sources generated per frame rendering * 1000
     // Default is 2000
-    private final int FOOD_GEN_RATE = 500;
+    private final int FOOD_GEN_RATE = 5000;
 
     public void setEnviWidth(int width) { this.enviWidth = width; }
     public int getEnviWidth() { return this.enviWidth; }
@@ -180,8 +180,8 @@ public class Evol extends JApplet implements Runnable {
         // Generate PRED_START_COUNT random predator creatures within reasonable bounds
         if(PREDS_ON) {
             for(int i = 0; i < PRED_START_COUNT; i++) {
-                enemy = new Creature(r.nextInt(enviWidth - OFFSET), // x coordinate
-                r.nextInt(enviHeight - OFFSET), // y coordinate
+                Creature enemy = new Creature(3 * enviWidth / 4 + r.nextInt(enviWidth / 4 - OFFSET), // x coordinate
+                3 * enviHeight / 4 + r.nextInt(enviHeight / 4 - OFFSET), // y coordinate
                 0, 1, this);
                 controller.add(enemy);
             }
@@ -298,7 +298,7 @@ public class Evol extends JApplet implements Runnable {
 		    //int xRange = enviWidth / 2 + (2 * r.nextInt(2) - 1) * (r.nextInt(enviWidth / 4) + enviWidth / 4 - OFFSET);
 		    //int yRange = enviHeight / 2 + (2 * r.nextInt(2) - 1) * (r.nextInt(enviHeight / 4) + enviHeight / 4 - OFFSET);
 		    int xRange = r.nextInt(enviWidth - OFFSET);
-		    int yRange = enviHeight / 2;
+		    int yRange = r.nextInt(enviHeight - OFFSET);;
 
 		    controller.add(new Food(xRange, yRange, r.nextInt(MAX_FOOD_AMOUNT)));
                 }
@@ -372,12 +372,12 @@ public class Evol extends JApplet implements Runnable {
 	    
 	    int gdtSize = generationDivisionTimes.size();
 
-	    //consoleSB.append(mostDeveloped.getGenome());
+	    consoleSB.append(mostDeveloped.getGenome());
 	    
 	    for(int i = 0; i < gdtSize; i++) {
 
 		Vector<Long> genTimes = generationDivisionTimes.elementAt(i);
-
+		/*
 		if(genTimes.size() > 30) {
 		    consoleSB.append(i + ": ");
 		    
@@ -404,10 +404,11 @@ public class Evol extends JApplet implements Runnable {
 		    
 		    consoleSB.append("\n");
 		}
+		*/
 	    }
 	    
 
-	    consoleSB.append("\n\n\n");
+	    consoleSB.append("\n");
 
 	    System.out.print(consoleSB.toString());
 
